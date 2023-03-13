@@ -1,0 +1,232 @@
+﻿<Window x:Class="coursavt.MVVM.View.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:coursavt"
+        xmlns:viewModel="clr-namespace:coursavt.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="600"
+        Width="1040"
+        Background="#F8E4BE"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel />
+    </Window.DataContext>
+    <!--<Window.Background>
+        <ImageBrush ImageSource="C:\Users\pbure\RiderProjects\coursavt\coursavt\Resources\111.png" Stretch="Uniform" />
+    </Window.Background>-->
+    <Window.Resources>
+        <SolidColorBrush x:Key="HungryPBbrush" Color="#EAA724" />
+        <SolidColorBrush x:Key="LeisurePBbrush" Color="#D25B01" />
+        <SolidColorBrush x:Key="SleepPBbrush" Color="#807622" />
+        <SolidColorBrush x:Key="StartButtonBrush" Color="#D25B01" />
+    </Window.Resources>
+    <!--#3A3920-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="190" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Background="#1C1C1C"
+                MouseDown="Border_MouseDown">
+
+            <Grid HorizontalAlignment="Stretch">
+
+                <Label Content="Игра"
+                       Foreground="Gray"
+                       FontWeight="Bold"
+                       FontSize="22"
+                       Margin="5, 0, 0, 0" />
+
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Margin="5, 0">
+
+                    <Button Width="20" Height="20"
+                            Content="_"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="ExtraBold"
+                            FontSize="14"
+                            Style="{StaticResource ButtonNormBackgroundTheme}"
+                            Click="Minimaze_Click"
+                            Margin="5, 0" />
+
+                    <Button Width="20" Height="20"
+                            Content="&#11036;"
+                            Background="Transparent"
+                            FontWeight="ExtraBold"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontSize="14"
+                            Style="{StaticResource ButtonNormBackgroundTheme}"
+                            Click="Maximaze_Click"
+                            Margin="5, 0" />
+
+                    <Button Width="20" Height="20"
+                            Content="🞭"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontSize="14"
+                            Style="{StaticResource ButtonNormBackgroundTheme}"
+                            Click="Close_Click"
+                            Margin="5, 0" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Canvas Grid.Row="1"
+                Grid.Column="0"
+                Grid.RowSpan="3">
+            <Canvas.Background>
+                <ImageBrush ImageSource="/Resources/111.png"
+                            Stretch="Uniform" />
+            </Canvas.Background>
+            <Image Canvas.Top="10"
+                   Canvas.Left="20"
+                   Source="/Resources/dislike.png"
+                   Height="30">
+            </Image>
+            <TextBlock Canvas.Top="10"
+                       Canvas.Left="50"
+                       Text="{Binding Hamster.Hamster.CountEscape, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="10, 3"
+                       FontSize="16"
+                       FontWeight="DemiBold">
+            </TextBlock>
+            <Image Canvas.Top="{Binding Hamster.Hamster.Location.Y, UpdateSourceTrigger=PropertyChanged}"
+                   Canvas.Left="{Binding Hamster.Hamster.Location.X, UpdateSourceTrigger=PropertyChanged}"
+                   Source="{Binding Hamster.Hamster.ImagePath, UpdateSourceTrigger=PropertyChanged}"
+                   Height="110">
+            </Image>
+        </Canvas>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+            <Label Content="Сытость"
+                   Foreground="#303030"
+                   FontWeight="DemiBold" />
+            <Grid>
+                <Border CornerRadius="12" Background="#303030" Height="25" />
+                <ProgressBar Minimum="0"
+                             Maximum="100"
+                             Background="#303030"
+                             Foreground="{StaticResource HungryPBbrush}"
+                             Height="25"
+                             Value="{Binding Hamster.Hamster.HungryPBar, UpdateSourceTrigger=PropertyChanged}">
+                    <!--<ProgressBar.Effect>
+                        <DropShadowEffect ShadowDepth="0" Color="#FFAD16" Opacity="1" BlurRadius="20"/>
+                    </ProgressBar.Effect>-->
+                    <ProgressBar.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=MaskBorder}" />
+                    </ProgressBar.OpacityMask>
+                </ProgressBar>
+            </Grid>
+
+            <Button Height="30"
+                    Command="{Binding EatCommand}"
+                    Content="Отправить кушать"
+                    IsEnabled="{Binding Hamster.Hamster.EatButtonEnabled}" />
+            <Label Content="Досуг"
+                   Foreground="#303030"
+                   FontWeight="DemiBold" />
+            <Grid>
+                <Border CornerRadius="12" Background="#303030" Height="25" />
+                <ProgressBar Minimum="0"
+                             Maximum="100"
+                             Background="#303030"
+                             Foreground="{StaticResource LeisurePBbrush}"
+                             Height="25"
+                             Value="{Binding Hamster.Hamster.LeisurePBar, UpdateSourceTrigger=PropertyChanged}">
+                    <ProgressBar.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=MaskBorder}" />
+                    </ProgressBar.OpacityMask>
+                </ProgressBar>
+            </Grid>
+            <Button Height="30"
+                    Command="{Binding PatCommand}"
+                    Content="Погладить"
+                    IsEnabled="{Binding Hamster.Hamster.ButtonEnabled}" />
+            <Button Height="30"
+                    Command="{Binding ScareCommand}"
+                    Content="Напугать"
+                    IsEnabled="{Binding Hamster.Hamster.ButtonEnabled}" />
+            <Button Height="30"
+                    Command="{Binding WheelCommand}"
+                    Content="Бегать в колесе"
+                    IsEnabled="{Binding Hamster.Hamster.ButtonEnabled}" />
+            <Label Content="Бодрость"
+                   Foreground="#303030"
+                   FontWeight="DemiBold" />
+            <Grid>
+                <Border x:Name="MaskBorder" CornerRadius="12" Background="#303030" Height="25" />
+                <ProgressBar Minimum="0"
+                             Maximum="100"
+                             Background="#303030"
+                             Foreground="{StaticResource SleepPBbrush}"
+                             Height="25"
+                             Value="{Binding Hamster.Hamster.SleepPBar, UpdateSourceTrigger=PropertyChanged}">
+                    <ProgressBar.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=MaskBorder}" />
+                    </ProgressBar.OpacityMask>
+                </ProgressBar>
+            </Grid>
+            <!--<Rectangle Height="25"
+                       RadiusX="15" RadiusY="15">
+                    <Rectangle.Fill>
+                        <VisualBrush>
+                            <VisualBrush.Visual>                                   
+                                <ProgressBar Minimum="0" 
+                                             Maximum="100" 
+                                             Value="{Binding Hamster.SleepPBar, UpdateSourceTrigger=PropertyChanged}"
+                                             Height="25"
+                                             Foreground="#FFAD16"
+                                             Background="#303030"/>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Rectangle.Fill>
+                </Rectangle>-->
+            <Button Height="30"
+                    Command="{Binding SleepCommand}"
+                    Content="Пора спать!!!!!!!!"
+                    IsEnabled="{Binding Hamster.Hamster.ButtonEnabled}" />
+            <Button Height="30"
+                    Command="{Binding StartCommand}"
+                    Content="Начать заново игру"
+                    Background="{StaticResource StartButtonBrush}"
+                    Foreground="#F1EBD8" />
+        </StackPanel>
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Content="Уведомления"
+               Foreground="Black"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Margin="0,-7,0,0"
+               FontWeight="Bold" />
+        <ListView Grid.Row="3"
+                  Grid.Column="1"
+                  ScrollViewer.CanContentScroll="False"
+                  ItemsSource="{Binding Hamster.Hamster.MessageControls}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  Margin="0,0,0,20">
+
+        </ListView>
+    </Grid>
+</Window>

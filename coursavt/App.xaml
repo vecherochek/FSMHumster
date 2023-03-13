@@ -1,0 +1,24 @@
+﻿<Application x:Class="coursavt.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:coursavt"
+             xmlns:viewModel="clr-namespace:coursavt.MVVM.ViewModel"
+             xmlns:view="clr-namespace:coursavt.MVVM.View"
+
+             StartupUri="/MVVM/View/MainWindowView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ButtonNormBackgroundTheme.xaml" />
+                <ResourceDictionary Source="Themes/ProgressBarTheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <DataTemplate DataType="{x:Type viewModel:MainWindowViewModel}">
+                <view:MainWindowView/>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
