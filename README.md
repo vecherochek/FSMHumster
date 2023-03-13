@@ -1,0 +1,1 @@
+# [Курсовая работа по теории автоматов и формальных языков](https://github.com/vecherochek/FSMHumster/blob/master/files/%D0%9A%D1%83%D1%80%D1%81%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BF%D0%BE%20%D0%A2%D0%90%D0%B8%D0%A4%D0%AF.pdf)
